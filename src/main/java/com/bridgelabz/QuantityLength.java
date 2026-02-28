@@ -6,24 +6,23 @@ public class QuantityLength {
     private final LengthUnit unit;
 
     public QuantityLength(double value, LengthUnit unit) {
+        if (!Double.isFinite(value) || unit == null)
+            throw new IllegalArgumentException("Invalid input");
+
         this.value = value;
         this.unit = unit;
     }
 
-    private double convertToFeet() {
-        return unit.toFeet(value);
-    }
+    public static double convert(double value,
+                                 LengthUnit source,
+                                 LengthUnit target) {
 
-    @Override
-    public boolean equals(Object obj) {
+        if (!Double.isFinite(value) || source == null || target == null)
+            throw new IllegalArgumentException("Invalid conversion input");
 
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        double valueInFeet =
+                value * source.getConversionFactor();
 
-        QuantityLength other = (QuantityLength) obj;
-
-        return Double.compare(
-                this.convertToFeet(),
-                other.convertToFeet()) == 0;
+        return valueInFeet / target.getConversionFactor();
     }
 }
