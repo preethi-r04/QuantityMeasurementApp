@@ -6,32 +6,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class QuantityLengthTest {
 
     @Test
-    void testYardToFeetEquality() {
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.YARDS);
-        QuantityLength q2 =
-                new QuantityLength(3.0, LengthUnit.FEET);
-
-        assertTrue(q1.equals(q2));
+    void testConversion_FeetToInches() {
+        assertEquals(12.0,
+                QuantityLength.convert(1.0,
+                        LengthUnit.FEET,
+                        LengthUnit.INCHES), 0.0001);
     }
 
     @Test
-    void testYardToInchesEquality() {
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.YARDS);
-        QuantityLength q2 =
-                new QuantityLength(36.0, LengthUnit.INCHES);
-
-        assertTrue(q1.equals(q2));
+    void testConversion_YardsToFeet() {
+        assertEquals(9.0,
+                QuantityLength.convert(3.0,
+                        LengthUnit.YARDS,
+                        LengthUnit.FEET), 0.0001);
     }
 
     @Test
-    void testCentimeterToInchEquality() {
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.CENTIMETERS);
-        QuantityLength q2 =
-                new QuantityLength(0.393701, LengthUnit.INCHES);
-
-        assertTrue(q1.equals(q2));
+    void testConversion_InvalidUnit() {
+        assertThrows(IllegalArgumentException.class,
+                () -> QuantityLength.convert(
+                        1.0, null, LengthUnit.FEET));
     }
 }
