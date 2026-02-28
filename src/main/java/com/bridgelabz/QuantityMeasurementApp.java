@@ -2,23 +2,16 @@ package com.bridgelabz;
 
 public class QuantityMeasurementApp {
 
-    public static void demonstrateLengthConversion(
-            double value,
-            LengthUnit from,
-            LengthUnit to) {
-
-        double result =
-                QuantityLength.convert(value, from, to);
-
-        System.out.println(value + " " + from +
-                " = " + result + " " + to);
-    }
-
     public static void main(String[] args) {
 
-        demonstrateLengthConversion(
-                1.0,
-                LengthUnit.FEET,
-                LengthUnit.INCHES);
+        QuantityLength l1 =
+                new QuantityLength(1.0, LengthUnit.FEET);
+
+        QuantityLength l2 =
+                new QuantityLength(12.0, LengthUnit.INCHES);
+
+        QuantityLength result = l1.add(l2);
+
+        System.out.println(result);
     }
 }

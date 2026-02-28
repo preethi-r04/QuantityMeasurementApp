@@ -1,28 +1,101 @@
 package com.bridgelabz;
 
+import java.util.Objects;
+
 public class QuantityLength {
 
     private final double value;
     private final LengthUnit unit;
 
     public QuantityLength(double value, LengthUnit unit) {
-        if (!Double.isFinite(value) || unit == null)
-            throw new IllegalArgumentException("Invalid input");
+        if (!Double.isFinite(value))
+            throw new IllegalArgumentException("Invalid value");
+
+        if (unit == null)
+            throw new IllegalArgumentException("Unit cannot be null");
 
         this.value = value;
         this.unit = unit;
     }
 
+    public double getValue() {
+        return value;
+    }
+
+    public LengthUnit getUnit() {
+        return unit;
+    }
+
+    // ---------- UC5 CONVERSION ----------
     public static double convert(double value,
                                  LengthUnit source,
                                  LengthUnit target) {
 
-        if (!Double.isFinite(value) || source == null || target == null)
-            throw new IllegalArgumentException("Invalid conversion input");
+        if (!Double.isFinite(value))
+            throw new IllegalArgumentException("Invalid value");
 
-        double valueInFeet =
+        if (source == null || target == null)
+            throw new IllegalArgumentException("Unit cannot be null");
+
+        double baseValue =
                 value * source.getConversionFactor();
 
-        return valueInFeet / target.getConversionFactor();
+        return baseValue / target.getConversionFactor();
+    }
+
+    public QuantityLength convertTo(LengthUnit target) {
+        double converted =
+                convert(this.value, this.unit, target);
+
+        return new QuantityLength(converted, target);
+    }
+
+    // ---------- UC6 ADDITION ----------
+    public QuantityLength add(QuantityLength other) {
+
+        if (other == null)
+            throw new IllegalArgumentException("Length cannot be null");
+
+        double thisFeet =
+                this.value * this.unit.getConversionFactor();
+
+        double otherFeet =
+                other.value * other.unit.getConversionFactor();
+
+        double sumFeet = thisFeet + otherFeet;
+
+        double result =
+                sumFeet / this.unit.getConversionFactor();
+
+        return new QuantityLength(result, this.unit);
+    }
+
+    // ---------- EQUALS ----------
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        QuantityLength other = (QuantityLength) obj;
+
+        double thisFeet =
+                this.value * this.unit.getConversionFactor();
+
+        double otherFeet =
+                other.value * other.unit.getConversionFactor();
+
+        return Double.compare(thisFeet, otherFeet) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, unit);
+    }
+
+    @Override
+    public String toString() {
+        return "Quantity(" + value + ", " + unit + ")";
     }
 }
