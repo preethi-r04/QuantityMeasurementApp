@@ -99,4 +99,40 @@ public class QuantityTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new Quantity<>(Double.NaN, LengthUnit.FEET));
     }
+    @Test
+    void testVolumeEquality_LitreToMillilitre() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+
+        assertTrue(v1.equals(v2));
+    }
+
+    @Test
+    void testVolumeConversion_LitreToMillilitre() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> result =
+                v1.convertTo(VolumeUnit.MILLILITRE);
+
+        assertEquals(1000.0, result.getValue(), 0.01);
+    }
+
+    @Test
+    void testVolumeAddition_LitrePlusMillilitre() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+
+        Quantity<VolumeUnit> result = v1.add(v2);
+
+        assertEquals(2.0, result.getValue(), 0.01);
+    }
 }
+
+
