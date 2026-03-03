@@ -14,7 +14,7 @@ public class QuantityTest {
     @Test
     void testLengthEquality_FeetAndInches() {
         Quantity<LengthUnit> q1 = new Quantity<>(1.0, LengthUnit.FEET);
-        Quantity<LengthUnit> q2 = new Quantity<>(12.0, LengthUnit.INCHES);
+        Quantity<LengthUnit> q2 = new Quantity<>(12.0, LengthUnit.INCH);
 
         assertTrue(q1.equals(q2));
     }
@@ -23,7 +23,7 @@ public class QuantityTest {
     void testLengthConversion_FeetToInches() {
         Quantity<LengthUnit> q = new Quantity<>(1.0, LengthUnit.FEET);
 
-        Quantity<LengthUnit> result = q.convertTo(LengthUnit.INCHES);
+        Quantity<LengthUnit> result = q.convertTo(LengthUnit.INCH);
 
         assertEquals(12.0, result.getValue(), EPSILON);
     }
@@ -31,7 +31,7 @@ public class QuantityTest {
     @Test
     void testLengthAddition_CrossUnit() {
         Quantity<LengthUnit> q1 = new Quantity<>(1.0, LengthUnit.FEET);
-        Quantity<LengthUnit> q2 = new Quantity<>(12.0, LengthUnit.INCHES);
+        Quantity<LengthUnit> q2 = new Quantity<>(12.0, LengthUnit.INCH);
 
         Quantity<LengthUnit> result = q1.add(q2, LengthUnit.FEET);
 
@@ -138,7 +138,7 @@ public class QuantityTest {
     @Test
     void testSubtraction_FeetMinusInches() {
         Quantity<LengthUnit> q1 = new Quantity<>(10.0, LengthUnit.FEET);
-        Quantity<LengthUnit> q2 = new Quantity<>(6.0, LengthUnit.INCHES);
+        Quantity<LengthUnit> q2 = new Quantity<>(6.0, LengthUnit.INCH);
 
         Quantity<LengthUnit> result = q1.subtract(q2);
 
@@ -169,7 +169,7 @@ public class QuantityTest {
 
     @Test
     void testDivision_CrossUnit() {
-        Quantity<LengthUnit> q1 = new Quantity<>(24.0, LengthUnit.INCHES);
+        Quantity<LengthUnit> q1 = new Quantity<>(24.0, LengthUnit.INCH);
         Quantity<LengthUnit> q2 = new Quantity<>(2.0, LengthUnit.FEET);
 
         assertEquals(1.0, q1.divide(q2), 0.0001);
