@@ -2,7 +2,8 @@ package com.bridgelabz.controller;
 
 import com.bridgelabz.entity.QuantityMeasurementEntity;
 import com.bridgelabz.service.QuantityMeasurementService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bridgelabz.entity.QuantityMeasurementEntity;
+import com.bridgelabz.service.QuantityMeasurementService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,11 +12,14 @@ import java.util.List;
 @RequestMapping("/quantity")
 public class QuantityMeasurementController {
 
-    @Autowired
-    private QuantityMeasurementService service;
+    private final QuantityMeasurementService service;
+
+    public QuantityMeasurementController(QuantityMeasurementService service) {
+        this.service = service;
+    }
 
     @PostMapping("/save")
-    public String save(@RequestBody QuantityMeasurementEntity entity) {
+    public QuantityMeasurementEntity save(@RequestBody QuantityMeasurementEntity entity) {
         return service.addQuantity(entity);
     }
 

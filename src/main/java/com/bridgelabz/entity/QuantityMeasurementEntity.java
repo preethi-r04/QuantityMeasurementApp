@@ -1,6 +1,4 @@
 package com.bridgelabz.entity;
-
-
 import jakarta.persistence.*;
 import lombok.*;
 
