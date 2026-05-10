@@ -1,7 +1,8 @@
-package com.bridgelabz.service;
+package com.bridgelabz.service.impl;
 
 import com.bridgelabz.entity.QuantityMeasurementEntity;
 import com.bridgelabz.repository.QuantityMeasurementRepository;
+import com.bridgelabz.service.QuantityMeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
